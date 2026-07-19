@@ -103,7 +103,7 @@ function renderQuestion() {
   el('question-source-title').textContent = q.sourceTitle || '';
   el('question-passage').innerHTML = q.passage || '';
   el('question-note').textContent = q.note || '';
-  el('question-stem').textContent = q.stem;
+  el('question-stem').innerHTML = q.stem;
   el('hint-text').classList.add('hidden');
   el('hint-text').textContent = '';
   el('feedback').textContent = '';
