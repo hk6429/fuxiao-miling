@@ -17,6 +17,19 @@ function qKey(roomIndex, questionIndex) {
   return `${roomIndex}-${questionIndex}`;
 }
 
+function firstUnansweredIndex(room, roomIndex) {
+  for (let i = 0; i < room.questions.length; i += 1) {
+    if (!state.answeredCorrectly.has(qKey(roomIndex, i))) return i;
+  }
+  return room.questions.length;
+}
+
+function clearRoomAnswers(roomIndex) {
+  Array.from(state.answeredCorrectly).forEach((key) => {
+    if (key.startsWith(`${roomIndex}-`)) state.answeredCorrectly.delete(key);
+  });
+}
+
 function currentRoom() {
   return window.GAME_DATA.rooms[state.roomIndex];
 }
@@ -80,7 +93,8 @@ function loadState() {
 
 function renderRoom() {
   const room = currentRoom();
-  state.questionIndex = 0;
+  const startIndex = firstUnansweredIndex(room, state.roomIndex);
+  state.questionIndex = Math.min(startIndex, room.questions.length - 1);
   state.secondsLeft = room.timeLimitSec;
   el('room-title').textContent = `第${room.id}台｜${room.name}．${room.theme}`;
   el('room-scene-img').src = room.sceneImage;
@@ -91,6 +105,10 @@ function renderRoom() {
   el('room-intro-text').textContent = room.intro;
   updateScoreDisplay();
   show('screen-room');
+  if (startIndex >= room.questions.length) {
+    finishRoom();
+    return;
+  }
   renderQuestion();
   startTimer();
   playRoomBgm(room);
@@ -280,6 +298,7 @@ function showEnding() {
 
 el('hint-btn').addEventListener('click', useHint);
 el('retry-btn').addEventListener('click', () => {
+  clearRoomAnswers(state.roomIndex);
   renderRoom();
 });
 el('reflection-continue-btn').addEventListener('click', () => {
@@ -296,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.__ESCAPE_GAME__ = {
   state, currentRoom, currentQuestion, renderRoom, renderQuestion, selectAnswer,
-  goToNextQuestionOrFinishRoom, qKey, WRONG_PENALTY, HINT_PENALTY, useHint,
+  goToNextQuestionOrFinishRoom, qKey, firstUnansweredIndex, clearRoomAnswers, WRONG_PENALTY, HINT_PENALTY, useHint,
   startTimer, stopTimer, lockRoom, finishRoom, showReflection, advanceToNextRoomOrEnding,
   showEnding, computeWeakCategories, saveState, loadState, playSfx, playRoomBgm,
 };
