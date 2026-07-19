@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>拂曉密令：總編輯的最後一夜</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio id="bgm-audio" loop preload="none"></audio>
+  <audio id="sfx-audio" preload="none"></audio>
+
+  <div id="app">
+    <section id="screen-intro" class="screen">
+      <h1 id="game-title"></h1>
+      <p id="game-intro-text">週年紀念特刊印刷前夜，《拂曉日報》系統忽然鎖死。六個編輯台的稿件同時卡住——你必須逐一查核過關，才能解鎖印刷機、趕上黎明發報。</p>
+      <button id="start-btn">開始代班</button>
+    </section>
+
+    <section id="screen-room" class="screen hidden">
+      <header id="room-header">
+        <h2 id="room-title"></h2>
+        <div id="room-meta">
+          <span id="room-timer">00:00</span>
+          <span id="room-score">分數：0</span>
+          <span id="room-progress"></span>
+        </div>
+      </header>
+      <div id="room-layout">
+        <div id="room-visual">
+          <img id="room-scene-img" alt="場景圖">
+          <p id="room-intro-text"></p>
+        </div>
+        <div id="question-box">
+          <p id="question-source-title"></p>
+          <div id="question-passage"></div>
+          <p id="question-note"></p>
+          <p id="question-stem"></p>
+          <div id="question-options"></div>
+          <div id="hint-area">
+            <button id="hint-btn">看提示（扣分）</button>
+            <p id="hint-text" class="hidden"></p>
+          </div>
+          <p id="feedback"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-lockout" class="screen hidden">
+      <h2>截稿時間到！稿件重新鎖上</h2>
+      <p>這一關要重新開始了，之前答對的分數不會扣除，但這關要重新作答。</p>
+      <button id="retry-btn">重新查核本關</button>
+    </section>
+
+    <section id="screen-reflection" class="screen hidden">
+      <h2>過版反思</h2>
+      <p id="reflection-prompt"></p>
+      <textarea id="reflection-input" rows="4" placeholder="寫下你的想法（僅顯示於本機，不會上傳）"></textarea>
+      <button id="reflection-continue-btn">繼續下一台</button>
+    </section>
+
+    <section id="screen-ending" class="screen hidden">
+      <h2 id="ending-title"></h2>
+      <div id="door-animation"><div id="door-left"></div><div id="door-right"></div></div>
+      <p id="ending-text"></p>
+      <div id="summary-stats"></div>
+    </section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
