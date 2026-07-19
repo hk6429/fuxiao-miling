@@ -59,6 +59,15 @@ body {
   padding: 16px;
 }
 
+#question-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+}
+
 #question-options button {
   display: block;
   width: 100%;

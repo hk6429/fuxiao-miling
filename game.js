@@ -104,6 +104,14 @@ function renderQuestion() {
   el('question-passage').innerHTML = q.passage || '';
   el('question-note').textContent = q.note || '';
   el('question-stem').innerHTML = q.stem;
+  const imgEl = el('question-image');
+  if (q.image) {
+    imgEl.src = q.image;
+    imgEl.classList.remove('hidden');
+  } else {
+    imgEl.src = '';
+    imgEl.classList.add('hidden');
+  }
   el('hint-text').classList.add('hidden');
   el('hint-text').textContent = '';
   el('feedback').textContent = '';
